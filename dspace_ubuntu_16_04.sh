@@ -28,7 +28,7 @@ cd ~/
 git clone https://github.com/DSpace/DSpace 
 cd DSpace
 git checkout dspace-6.0
-mvn -U package
+mvn package
 cd dspace/target/dspace-6.0
 sudo ant fresh_install
 cp dspace/target/dspace-installer/webapps 
