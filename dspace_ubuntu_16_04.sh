@@ -34,7 +34,7 @@ sudo ant fresh_install
 cp dspace/target/dspace-installer/webapps 
 
 #install compiled apps in tomcat8
-sudo cp $(find /home/dspace/DSpace | grep \.war$ | xargs echo) /usr/share/tomcat8-root/
+sudo cp $(find /home/dspace/DSpace | grep \.war$ | xargs echo) /var/lib/tomcat8/webapps
 
 #restart tomcat
 sudo service tomcat8 restart
