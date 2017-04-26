@@ -31,3 +31,10 @@ git checkout dspace-6.0
 mvn -U package
 cd dspace/target/dspace-6.0
 sudo ant fresh_install
+cp dspace/target/dspace-installer/webapps 
+
+#install compiled apps in tomcat8
+sudo cp -R /home/dspace/DSpace/dspace/target/dspace-installer/webapps/* /usr/share/tomcat8-root/
+
+#restart tomcat
+sudo service tomcat8 restart
