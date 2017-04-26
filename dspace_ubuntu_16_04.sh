@@ -40,7 +40,7 @@ git checkout dspace-6.0
 #fix settings in dspace.cfg
 
 #copy app to installation directory
-cp -R /home/dspace/DSpace /dspace
+cp -R /home/dspace/DSpace/* /dspace
 
 #compile
 cd /home/dspace/DSpace
