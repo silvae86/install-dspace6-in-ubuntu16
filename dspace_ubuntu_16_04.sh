@@ -19,22 +19,39 @@ sudo passwd dspace #enter password
 sudo mkdir /dspace
 sudo chown dspace /dspace
 
+#authenticate as dspace
+sudo su dspace
+
 #create the database for dspace
 sudo -u dspace createdb -U dspace -E UNICODE dspace
 
+#install pgcrypto
+sudo su postgres
+psql dspace
+CREATE EXTENSION pgcrypto;
+
 #clone dspace
-sudo su dspace
+
 cd ~/
 git clone https://github.com/DSpace/DSpace 
 cd DSpace
 git checkout dspace-6.0
+
+#fix settings in dspace.cfg
+
+#copy app to installation directory
+cp -R /home/dspace/DSpace /dspace
+
+#compile
+cd /home/dspace/DSpace
 mvn package
-cd dspace/target/dspace-6.0
-sudo ant fresh_install
-cp dspace/target/dspace-installer/webapps 
+cd /home/dspace/DSpace/dspace/target/dspace-installer
+ant fresh_install
 
 #install compiled apps in tomcat8
-sudo cp $(find /home/dspace/DSpace | grep \.war$ | xargs echo) /var/lib/tomcat8/webapps
+#sudo cp $(find /home/dspace/DSpace | grep \.war$ | xargs echo) /var/lib/tomcat8/webapps
+
+sudo cp -r /home/dspace/DSpace/dspace/target/dspace-installer/webapps/* /var/lib/tomcat8/webapps
 
 #restart tomcat
 sudo service tomcat8 restart
