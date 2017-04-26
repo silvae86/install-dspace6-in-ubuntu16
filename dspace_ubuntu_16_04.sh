@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #install dependencies
-sudo apt-get install openjdk-8-jdk tasksel ant maven htop
+sudo apt-get install openjdk-8-jdk tasksel ant maven htop lynx
 sudo tasksel #select PostgreSQL server and Tomcat Server. Confirm.
 
 #editing database properties
@@ -34,30 +34,33 @@ CREATE EXTENSION pgcrypto;
 
 #clone dspace
 
-cd ~/
+cd /home/dspace
 git clone https://github.com/DSpace/DSpace 
 cd DSpace
 git checkout dspace-6.0
 
-#fix settings in dspace.cfg
-
-## DSpace installation directory
-## Windows note: Please remember to use forward slashes for all paths (e.g. C:/dspace)
-#dspace.dir = /dspace/dspace
-
 #compile
 cd /home/dspace/DSpace
-mvn package
-cd /home/dspace/DSpace/dspace/target/dspace-installer
-ant fresh_install
+#set build properties
+cd /home/dspace/DSpace/dspace/config
+cp local.cfg.EXAMPLE local.cfg
+
+vim local.cfg
+#paste the contents of attached file in this gist
+
+sudo su
+cd /home/dspace/DSpace;
+mvn package;
+cd /home/dspace/DSpace/dspace/target/dspace-installer;
+ant fresh_install;
 
 #copy app to installation directory
-sudo cp -R /home/dspace/DSpace/* /dspace
+cp -R /home/dspace/DSpace/dspace /dspace
 
 #install compiled apps in tomcat8
 #sudo cp $(find /home/dspace/DSpace | grep \.war$ | xargs echo) /var/lib/tomcat8/webapps
 
-sudo cp -r /home/dspace/DSpace/dspace/target/dspace-installer/webapps/* /var/lib/tomcat8/webapps
+cp -R /dspace/dspace/webapps/* /var/lib/tomcat8/webapps
 
 #restart tomcat
-sudo service tomcat8 restart
+service tomcat8 restart
