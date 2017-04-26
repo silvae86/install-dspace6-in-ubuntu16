@@ -4,6 +4,10 @@
 sudo apt-get install openjdk-8-jdk tasksel ant maven htop lynx
 sudo tasksel #select PostgreSQL server and Tomcat Server. Confirm.
 
+#edit tomcat heap space
+sudo vim /usr/share/tomcat8/bin/setenv.sh
+#paste set JAVA_OPTS=-Xmx512m
+
 #editing database properties
 sudo su postgres 
 createuser -U postgres -d -A -P dspace
