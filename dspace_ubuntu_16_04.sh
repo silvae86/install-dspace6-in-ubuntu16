@@ -39,6 +39,10 @@ git checkout dspace-6.0
 
 #fix settings in dspace.cfg
 
+## DSpace installation directory
+## Windows note: Please remember to use forward slashes for all paths (e.g. C:/dspace)
+#dspace.dir = /dspace/dspace
+
 #copy app to installation directory
 cp -R /home/dspace/DSpace/* /dspace
 
