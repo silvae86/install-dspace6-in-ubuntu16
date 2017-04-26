@@ -34,7 +34,7 @@ sudo ant fresh_install
 cp dspace/target/dspace-installer/webapps 
 
 #install compiled apps in tomcat8
-sudo cp -R /home/dspace/DSpace/dspace/target/dspace-installer/webapps/* /usr/share/tomcat8-root/
+sudo cp $(find /home/dspace/DSpace | grep \.war$ | xargs echo) /usr/share/tomcat8-root/
 
 #restart tomcat
 sudo service tomcat8 restart
@@ -58,6 +58,9 @@ sudo vim /etc/tomcat8/tomcat-users.xml
 #	<user username="admin" password="admin" roles="manager-gui"/>
 #
 #</tomcat-users>
+
+#deploy dspace app (JSPUI)
+
 
 
 
