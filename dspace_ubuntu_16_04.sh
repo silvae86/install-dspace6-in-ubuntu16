@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #install dependencies
-sudo apt-get install openjdk-8-jdk tasksel ant maven
+sudo apt-get install openjdk-8-jdk tasksel ant maven htop
 sudo tasksel #select PostgreSQL server and Tomcat Server. Confirm.
 
 #editing database properties
