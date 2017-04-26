@@ -25,6 +25,8 @@ sudo su dspace
 #create the database for dspace
 sudo -u dspace createdb -U dspace -E UNICODE dspace
 
+exit
+
 #install pgcrypto
 sudo su postgres
 psql dspace
@@ -43,14 +45,14 @@ git checkout dspace-6.0
 ## Windows note: Please remember to use forward slashes for all paths (e.g. C:/dspace)
 #dspace.dir = /dspace/dspace
 
-#copy app to installation directory
-cp -R /home/dspace/DSpace/* /dspace
-
 #compile
 cd /home/dspace/DSpace
 mvn package
 cd /home/dspace/DSpace/dspace/target/dspace-installer
 ant fresh_install
+
+#copy app to installation directory
+sudo cp -R /home/dspace/DSpace/* /dspace
 
 #install compiled apps in tomcat8
 #sudo cp $(find /home/dspace/DSpace | grep \.war$ | xargs echo) /var/lib/tomcat8/webapps
@@ -59,28 +61,6 @@ sudo cp -r /home/dspace/DSpace/dspace/target/dspace-installer/webapps/* /var/lib
 
 #restart tomcat
 sudo service tomcat8 restart
-
-#enable admin user for tomcat gui
-sudo vim /etc/tomcat8/tomcat-users.xml
-
-
-#The file must be like this
-
-#<tomcat-users>
-#<!--
-#  <role rolename="tomcat"/>
-#  <role rolename="role1"/>
-#  <user username="tomcat" password="tomcat" roles="tomcat"/>
-#  <user username="both" password="tomcat" roles="tomcat,role1"/>
-#  <user username="role1" password="tomcat" roles="role1"/>
-#-->
-
-#	<role rolename="manager-gui"/>
-#	<user username="admin" password="admin" roles="manager-gui"/>
-#
-#</tomcat-users>
-
-#deploy dspace app (JSPUI)
 
 #misc stuff
 
