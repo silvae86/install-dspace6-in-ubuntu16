@@ -6,7 +6,8 @@ sudo tasksel #select PostgreSQL server and Tomcat Server. Confirm.
 
 #edit tomcat heap space
 sudo vim /usr/share/tomcat8/bin/setenv.sh
-#paste set JAVA_OPTS=-Xmx512m
+#paste the contents of the setenv.sh file in this gist and save
+sudo service tomcat8 restart
 
 #editing database properties
 sudo su postgres 
