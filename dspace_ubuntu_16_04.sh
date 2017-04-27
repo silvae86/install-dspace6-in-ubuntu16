@@ -67,5 +67,7 @@ cp -R /home/dspace/DSpace/dspace /dspace
 
 cp -R /dspace/dspace/webapps/* /var/lib/tomcat8/webapps
 
+#give ownership of installation to tomcat user
+sudo chown -R tomcat8 /dspace
 #restart tomcat
 service tomcat8 restart
