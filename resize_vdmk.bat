@@ -1,3 +1,0 @@
-"C:\Program Files\Oracle\VirtualBox\VBoxManage.exe" clonemedium "C:\Users\joaor\VirtualBox VMs\DSpaceVagrant_default_1493144378220_4048\ubuntu-xenial-16.04-cloudimg.vmdk" "C:\Users\joaor\VirtualBox VMs\DSpaceVagrant_default_1493144378220_4048\ubuntu-xenial-16.04-cloudimg.vdi" --format vdi
-"C:\Program Files\Oracle\VirtualBox\VBoxManage.exe" modifymedium "C:\Users\joaor\VirtualBox VMs\DSpaceVagrant_default_1493144378220_4048\ubuntu-xenial-16.04-cloudimg.vdi" --resize 51200
-"C:\Program Files\Oracle\VirtualBox\VBoxManage.exe" clonemedium "C:\Users\joaor\VirtualBox VMs\DSpaceVagrant_default_1493144378220_4048\ubuntu-xenial-16.04-cloudimg.vdi" "C:\Users\joaor\VirtualBox VMs\DSpaceVagrant_default_1493144378220_4048\ubuntu-xenial-16.04-cloudimg.vdmk" --format vmdk

@@ -1,8 +1,10 @@
 #!/bin/bash
 
 #install dependencies
-sudo apt-get -qq -y install openjdk-8-jdk tasksel ant maven htop lynx
+sudo apt-get -qq -y install openjdk-8-jdk tasksel ant maven htop lynx wget
+sudo apt-get install mutt
 sudo tasksel #select PostgreSQL server and Tomcat Server. Confirm.
+sudo apt-get install mutt #optional, for mailing files as attachments.
 
 #edit tomcat heap space
 sudo vim /usr/share/tomcat8/bin/setenv.sh
@@ -69,6 +71,10 @@ cp -R /home/dspace/DSpace/dspace /dspace
 #sudo cp $(find /home/dspace/DSpace | grep \.war$ | xargs echo) /var/lib/tomcat8/webapps
 
 cp -R /dspace/dspace/webapps/* /var/lib/tomcat8/webapps
+
+#create admin user
+su dspace
+/dspace/dspace/bin/dspace create-administrator
 
 #give ownership of installation to tomcat user
 sudo chown -R tomcat8 /dspace
