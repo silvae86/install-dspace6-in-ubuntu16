@@ -53,6 +53,8 @@ vim local.cfg
 
 #configure csv import
 vim /home/dspace/DSpace/dspace/config/spring/api/bte.xml
+#replace the <bean id="csvDataLoader" section with the contents of the bte.xml in this gist 
+exit
 
 sudo su
 cd /home/dspace/DSpace;

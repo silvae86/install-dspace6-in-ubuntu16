@@ -1,0 +1,62 @@
+<bean id="csvDataLoader" class="gr.ekt.bteio.loaders.CSVDataLoader">
+        <property name="fieldMap">
+                <map>
+                  <entry key="0" value="dc.contributor.author" />
+                  <entry key="1" value="dc.contributor.editor" />
+                  <entry key="2" value="dc.contributor.illustrator" />
+                  <entry key="3" value="dc.contributor.other" />
+                  <entry key="4" value="dc.contributor" />
+                  <entry key="5" value="dc.coverage.spatial" />
+                  <entry key="6" value="dc.coverage.temporal" />
+                  <entry key="7" value="dc.creator" />
+                  <entry key="8" value="dc.date.issued" />
+                  <entry key="9" value="dc.date" />
+                  <entry key="10" value="dc.description.abstract" />
+                  <entry key="11" value="dc.description.provenance" />
+                  <entry key="12" value="dc.description.tableofcontents" />
+                  <entry key="13" value="dc.format.mimetype" />
+                  <entry key="14" value="dc.format" />
+                  <entry key="15" value="dc.identifier.citation" />
+                  <entry key="16" value="dc.identifier.govdoc" />
+                  <entry key="17" value="dc.identifier.isbn" />
+                  <entry key="18" value="dc.identifier.ismn" />
+                  <entry key="19" value="dc.identifier.issn" />
+                  <entry key="20" value="dc.identifier.other" />
+                  <entry key="21" value="dc.identifier.sici" />
+                  <entry key="22" value="dc.identifier.slug" />
+                  <entry key="23" value="dc.identifier" />
+                  <entry key="24" value="dc.language.iso" />
+                  <entry key="25" value="dc.language.rfc3066" />
+                  <entry key="26" value="dc.language" />
+                  <entry key="27" value="dc.provenance" />
+                  <entry key="28" value="dc.publisher" />
+                  <entry key="29" value="dc.relation.haspart" />
+                  <entry key="30" value="dc.relation.hasversion" />
+                  <entry key="31" value="dc.relation.isbasedon" />
+                  <entry key="32" value="dc.relation.isformatof" />
+                  <entry key="33" value="dc.relation.ispartof" />
+                  <entry key="34" value="dc.relation.ispartofseries" />
+                  <entry key="35" value="dc.relation.isreferencedby" />
+                  <entry key="36" value="dc.relation.isreplacedby" />
+                  <entry key="37" value="dc.relation.isversionof" />
+                  <entry key="38" value="dc.relation.replaces" />
+                  <entry key="39" value="dc.relation.requires" />
+                  <entry key="40" value="dc.relation.uri" />
+                  <entry key="41" value="dc.relation" />
+                  <entry key="42" value="dc.rights.holder" />
+                  <entry key="43" value="dc.rights.uri" />
+                  <entry key="44" value="dc.source" />
+                  <entry key="45" value="dc.subject.classification" />
+                  <entry key="46" value="dc.subject.ddc" />
+                  <entry key="47" value="dc.subject.lcc" />
+                  <entry key="48" value="dc.subject.lcsh" />
+                  <entry key="49" value="dc.subject.mesh" />
+                  <entry key="50" value="dc.subject.other" />
+                  <entry key="51" value="dc.subject" />
+                  <entry key="52" value="dc.title.alternative" />
+                  <entry key="53" value="dc.title" />
+                  <entry key="54" value="dc.type" />
+                </map>
+        </property>
+        <property name="skipLines" value="1" />
+</bean>
