@@ -73,6 +73,7 @@ cp -R /home/dspace/DSpace/dspace /dspace
 cp -R /dspace/dspace/webapps/* /var/lib/tomcat8/webapps
 
 #create admin user
+chmod +x /dspace/dspace/bin/dspace
 su dspace
 /dspace/dspace/bin/dspace create-administrator
 
