@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #install dependencies
-sudo apt-get install openjdk-8-jdk tasksel ant maven htop lynx
+sudo apt-get -qq -y install openjdk-8-jdk tasksel ant maven htop lynx
 sudo tasksel #select PostgreSQL server and Tomcat Server. Confirm.
 
 #edit tomcat heap space
@@ -18,33 +18,31 @@ vim /etc/postgresql/9.5/main/pg_hba.conf
 #add at the end:
 #local all dspace md5 
 
+exit
+
 #create dspace user and dspace directory
 sudo useradd -m dspace
 sudo passwd dspace #enter password
 sudo mkdir /dspace
 sudo chown dspace /dspace
 
-#authenticate as dspace
-sudo su dspace
-
 #create the database for dspace
 sudo -u dspace createdb -U dspace -E UNICODE dspace
-
-exit
 
 #install pgcrypto
 sudo su postgres
 psql dspace
 CREATE EXTENSION pgcrypto;
+#Type \q and then press ENTER to quit psql.
 
 #clone dspace
-
+sudo su dspace
 cd /home/dspace
 git clone https://github.com/DSpace/DSpace 
 cd DSpace
 git checkout dspace-6.0
 
-#compile
+#configure things for compiling dspace
 cd /home/dspace/DSpace
 #set build properties
 cd /home/dspace/DSpace/dspace/config
@@ -52,6 +50,9 @@ cp local.cfg.EXAMPLE local.cfg
 
 vim local.cfg
 #paste the contents of attached file in this gist
+
+#configure csv import
+vim /home/dspace/DSpace/dspace/config/spring/api/bte.xml
 
 sudo su
 cd /home/dspace/DSpace;
