@@ -17,5 +17,8 @@ VBoxManage internalcommands sethduuid ubuntu-xenial-16.04-cloudimg.vmdk
 #      </HardDisks>
 #</MediaRegistry>
 
+#Remove the vmdk hard drive in the VBox UI and reattach it again.
+#Boot up!
+
 
 rm -rf ubuntu-xenial-16.04-cloudimg.vmdk.bak #AFTER you check the clone was SUCCESSFUL!!!
