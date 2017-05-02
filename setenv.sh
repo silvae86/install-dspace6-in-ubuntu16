@@ -1,3 +1,3 @@
 #!/bin/sh
 
-export JAVA_OPTS="$JAVA_OPTS -Xms1024M -Xmx1024M"
+export JAVA_OPTS="$JAVA_OPTS -Xms512M -Xmx512M"
