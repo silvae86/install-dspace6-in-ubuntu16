@@ -63,15 +63,11 @@ cd /home/dspace/DSpace;
 mvn package;
 cd /home/dspace/DSpace/dspace/target/dspace-installer;
 ant fresh_install;
-
 #copy app to installation directory
 cp -R /home/dspace/DSpace/dspace /dspace;
-
 #install compiled apps in tomcat8
 #sudo cp $(find /home/dspace/DSpace | grep \.war$ | xargs echo) /var/lib/tomcat8/webapps;
-
 cp -R /dspace/dspace/webapps/* /var/lib/tomcat8/webapps;
-
 #give ownership of installation to tomcat user
 sudo chown -R tomcat8 /dspace;
 #restart tomcat;
