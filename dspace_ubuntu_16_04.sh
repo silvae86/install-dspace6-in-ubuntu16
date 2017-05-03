@@ -58,6 +58,8 @@ vim /home/dspace/DSpace/dspace/config/spring/api/bte.xml
 #replace the <bean id="csvDataLoader" section with the contents of the bte.xml in this gist 
 exit
 
+#upload any custom logos to /home/dspace/DSpace/dspace-jspui/src/main/webapp/image
+
 sudo su
 cd /home/dspace/DSpace;
 mvn package;
