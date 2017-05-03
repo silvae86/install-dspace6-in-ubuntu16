@@ -12,13 +12,13 @@ sudo vim /usr/share/tomcat8/bin/setenv.sh
 sudo service tomcat8 restart
 
 #editing database properties
-sudo su postgres 
+sudo su postgres
 createuser -U postgres -d -A -P dspace
 
-vim /etc/postgresql/9.5/main/pg_hba.conf 
+vim /etc/postgresql/9.5/main/pg_hba.conf
 
 #add at the end:
-#local all dspace md5 
+#local all dspace md5
 
 exit
 
@@ -40,7 +40,7 @@ CREATE EXTENSION pgcrypto;
 #clone dspace
 sudo su dspace
 cd /home/dspace
-git clone https://github.com/DSpace/DSpace 
+git clone https://github.com/DSpace/DSpace
 cd DSpace
 git checkout dspace-6.0
 
@@ -55,26 +55,33 @@ vim local.cfg
 
 #configure csv import
 vim /home/dspace/DSpace/dspace/config/spring/api/bte.xml
-#replace the <bean id="csvDataLoader" section with the contents of the bte.xml in this gist 
+#replace the <bean id="csvDataLoader" section with the contents of the bte.xml in this gist
 exit
 
-#upload any custom logos to /home/dspace/DSpace/dspace-jspui/src/main/webapp/image
+#upload any custom logos to
+#/home/dspace/DSpace/dspace-jspui/src/main/webapp/image
+#/home/dspace/DSpace/dspace/target/dspace-installer/webapps/xmlui/themes/Mirage/images
 
 sudo su
-cd /home/dspace/DSpace;
-mvn package;
-cd /home/dspace/DSpace/dspace/target/dspace-installer;
-ant fresh_install;
+#set the modification date to the current date on the server because of any time offset problems
+touch -a /var/lib/tomcat8/webapps/jspui/image/*logo* &&
+cd /home/dspace/DSpace  &&
+mvn package &&
+cd /home/dspace/DSpace/dspace/target/dspace-installer &&
+ant fresh_install &&
 #copy app to installation directory
-cp -R /home/dspace/DSpace/dspace /dspace;
+cp -R /home/dspace/DSpace/dspace /dspace &&
 #install compiled apps in tomcat8
 #sudo cp $(find /home/dspace/DSpace | grep \.war$ | xargs echo) /var/lib/tomcat8/webapps;
-cp -R /dspace/dspace/webapps/* /var/lib/tomcat8/webapps;
+cd /var/lib/tomcat8/webapps &&
+rm -rf jspui/   oai/     rdf/     rest/    solr/    sword/   swordv2/ xmlui/ &&
+cp -R /dspace/dspace/webapps/jspui /dspace/dspace/webapps/solr /dspace/dspace/webapps/rest /var/lib/tomcat8/webapps &&
+touch -a /home/dspace/DSpace/dspace-jspui/src/main/webapp/image/*logo* &&
 #give ownership of installation to tomcat user
-sudo chown -R tomcat8 /dspace;
+sudo chown -R tomcat8 /dspace &&
 #restart tomcat;
-service tomcat8 restart;
-echo "OK"
+service tomcat8 restart &&
+echo "OK";
 
 #create admin user
 chmod +x /dspace/dspace/bin/dspace
