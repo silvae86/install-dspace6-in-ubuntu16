@@ -62,6 +62,9 @@ exit
 #/home/dspace/DSpace/dspace-jspui/src/main/webapp/image
 #/home/dspace/DSpace/dspace/target/dspace-installer/webapps/xmlui/themes/Mirage/images
 
+# you can also edit the header jsp file to change the path to the logo
+#vim /dspace/webapps/jspui/layout/header-default.jsp
+
 sudo su
 #set the modification date to the current date on the server because of any time offset problems
 touch -a /var/lib/tomcat8/webapps/jspui/image/*logo* &&
