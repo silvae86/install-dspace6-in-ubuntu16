@@ -10,4 +10,4 @@ Also supports the case when you have more than one value for a metadata descript
 
 # DSpace 6.x on Ubuntu 16.04
 
-Thanks to Claudia Jurgen and all others who [helped me](https://groups.google.com/forum/#!topic/dspace-tech/nzH76gcvWjc) at the DSpace Technical forum, you are great!
+Thanks to Claudia Jürgen and all others who [helped me](https://groups.google.com/forum/#!topic/dspace-tech/nzH76gcvWjc) at the DSpace Technical forum, you are great!
