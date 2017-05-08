@@ -279,6 +279,7 @@
 		with valueSeparator. This can be a full java regular expression. Default
 		value: null (the csv value is not used by default). -->
 	<bean id="csvDataLoader" class="gr.ekt.bteio.loaders.CSVDataLoader">
+		<property name="valueSeparator" value="#" />
 		<property name="fieldMap">
 			<map>
 				<entry key="0" value="jissn" />
