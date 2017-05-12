@@ -27,7 +27,7 @@
     <bean id="solrServiceMetadataBrowseIndexingPlugin" class="org.dspace.discovery.SolrServiceMetadataBrowseIndexingPlugin" scope="prototype"/>
 
     <alias name="solrServiceResourceIndexPlugin" alias="org.dspace.discovery.SolrServiceResourceRestrictionPlugin"/>
-    
+
     <!-- Additional indexing plugin make filtering by has content in original bundle (like pdf's, images) posible via SOLR -->
     <bean id="hasContentInOriginalBundle" class="org.dspace.discovery.SolrServiceContentInOriginalBundleFilterPlugin"/>
 
@@ -115,6 +115,14 @@
                 <ref bean="searchFilterAuthor" />
                 <ref bean="searchFilterSubject" />
                 <ref bean="searchFilterIssued" />
+                <ref bean="searchFilterLanguage" />
+                <ref bean="searchFilterIdentifier" />
+                <ref bean="searchFilterCitation" />
+                <ref bean="searchFilterJournal" />
+                <ref bean="searchFilterUri" />
+                <ref bean="searchFilterSpatial" />
+                <ref bean="searchFilterTemporal" />
+                <ref bean="searchFilterTableOfContents" />
                 <ref bean="searchFilterContentInOriginalBundle"/>
             </list>
         </property>
@@ -171,7 +179,7 @@
                         <bean class="org.dspace.discovery.configuration.DiscoveryHitHighlightFieldConfiguration">
                             <property name="field" value="fulltext"/>
                             <property name="maxSize" value="250"/>
-                            <property name="snippets" value="2"/>   
+                            <property name="snippets" value="2"/>
                         </bean>
                     </list>
                 </property>
@@ -224,6 +232,13 @@
                 <ref bean="searchFilterIssued" />
                 <ref bean="searchFilterContentInOriginalBundle"/>
                 <ref bean="searchFilterLanguage"/>
+                <ref bean="searchFilterIdentifier"/>
+                <ref bean="searchFilterCitation"/>
+                <ref bean="searchFilterJournal"/>
+                <ref bean="searchFilterUri"/>
+                <ref bean="searchFilterSpatial"/>
+                <ref bean="searchFilterTemporal"/>
+                <ref bean="searchFilterTableOfContents"/>
             </list>
         </property>
         <!--The sort filters for the discovery search (same as defaultConfiguration above)-->
@@ -290,7 +305,7 @@
             </list>
         </property>
     </bean>
-    
+
     <!--TagCloud configuration bean for default discovery configuration-->
     <bean id="defaultTagCloudFacetConfiguration" class="org.dspace.discovery.configuration.TagCloudFacetConfiguration">
         <!-- Actual configuration of the tagcloud (colors, sorting, etc.) -->
@@ -302,74 +317,74 @@
             </list>
         </property>
     </bean>
-    
+
     <bean id="tagCloudConfiguration" class="org.dspace.discovery.configuration.TagCloudConfiguration">
         <!-- Should display the score of each tag next to it? Default: false -->
         <!-- <property name="displayScore" value="true"/> -->
-		
+
         <!-- Should display the tag as center aligned in the page or left aligned? Possible values: true | false. Default: true  -->
         <!-- <property name="shouldCenter" value="true"/> -->
-		
+
         <!-- How many tags will be shown. Value -1 means all of them. Default: -1 -->
         <!--<property name="totalTags" value="-1"/> -->
-		
-        <!-- The letter case of the tags. 
+
+        <!-- The letter case of the tags.
         Possible values: Case.LOWER | Case.UPPER | Case.CAPITALIZATION | Case.PRESERVE_CASE | Case.CASE_SENSITIVE
         Default: Case.PRESERVE_CASE -->
         <!--<property name="cloudCase" value="Case.PRESERVE_CASE"/> -->
-		
+
         <!-- If the 3 colors of the tag cloud should be independent of score (random=yes) or based on the score. Possible values: true | false . Default: true-->
         <!-- <property name="randomColors" value="true"/> -->
 
         <!-- The font size (in em) for the tag with the lowest score. Possible values: any decimal. Default: 1.1 -->
         <!-- <property name="fontFrom" value="1.1"/>-->
-		
+
         <!-- The font size (in em) for the tag with the lowest score. Possible values: any decimal. Default: 3.2 -->
         <!-- <property name="fontTo" value="3.2"/>-->
-		
+
         <!-- The score that tags with lower than that will not appear in the rag cloud. Possible values: any integer from 1 to infinity. Default: 0 -->
         <!-- <property name="cuttingLevel" value="0"/>-->
 
         <!-- The ordering of the tags (based either on the name or the score of the tag)
         Possible values: Tag.NameComparatorAsc | Tag.NameComparatorDesc | Tag.ScoreComparatorAsc | Tag.ScoreComparatorDesc
         Default: Tag.NameComparatorAsc  -->
-        <!-- <property name="ordering" value="Tag.NameComparatorAsc"/>-->	
+        <!-- <property name="ordering" value="Tag.NameComparatorAsc"/>-->
     </bean>
-    
+
     <!-- The tag cloud parameters for the tag clouds that appear in the browse pages -->
     <bean id="browseTagCloudConfiguration" class="org.dspace.discovery.configuration.TagCloudConfiguration">
         <!-- Should display the score of each tag next to it? Default: false -->
         <!-- <property name="displayScore" value="true"/> -->
-		
+
         <!-- Should display the tag as center aligned in the page or left aligned? Possible values: true | false. Default: true  -->
         <!-- <property name="shouldCenter" value="true"/> -->
-		
+
         <!-- How many tags will be shown. Value -1 means all of them. Default: -1 -->
         <!--<property name="totalTags" value="-1"/> -->
-		
-        <!-- The letter case of the tags. 
+
+        <!-- The letter case of the tags.
         Possible values: Case.LOWER | Case.UPPER | Case.CAPITALIZATION | Case.PRESERVE_CASE | Case.CASE_SENSITIVE
         Default: Case.PRESERVE_CASE -->
         <!--<property name="cloudCase" value="Case.PRESERVE_CASE"/> -->
-		
+
         <!-- If the 3 colors of the tag cloud should be independent of score (random=yes) or based on the score. Possible values: true | false . Default: true-->
         <!-- <property name="randomColors" value="true"/> -->
 
         <!-- The font size (in em) for the tag with the lowest score. Possible values: any decimal. Default: 1.1 -->
         <!-- <property name="fontFrom" value="1.1"/>-->
-		
+
         <!-- The font size (in em) for the tag with the lowest score. Possible values: any decimal. Default: 3.2 -->
         <!-- <property name="fontTo" value="3.2"/>-->
-		
+
         <!-- The tags with score lower than this will not appear in the tag cloud. Possible values: any integer from 1 to infinity. Default: 0 -->
         <!-- <property name="cuttingLevel" value="0"/>-->
-	
+
         <!-- The ordering of the tags (based either on the name or the score of the tag)
         Possible values: Tag.NameComparatorAsc | Tag.NameComparatorDesc | Tag.ScoreComparatorAsc | Tag.ScoreComparatorDesc
         Default: Tag.NameComparatorAsc  -->
-        <!-- <property name="ordering" value="Tag.NameComparatorAsc"/>-->	
+        <!-- <property name="ordering" value="Tag.NameComparatorAsc"/>-->
     </bean>
-    
+
     <!--Search filter configuration beans-->
     <bean id="searchFilterTitle" class="org.dspace.discovery.configuration.DiscoverySearchFilter">
         <property name="indexFieldName" value="title"/>
@@ -422,7 +437,7 @@
         <property name="sortOrderSidebar" value="COUNT"/>
         <property name="sortOrderFilterPage" value="COUNT"/>
     </bean>
-    
+
     <bean id="searchFilterLanguage" class="org.dspace.discovery.configuration.DiscoverySearchFilterFacet">
         <property name="indexFieldName" value="language"/>
         <property name="metadataFields">
@@ -433,15 +448,15 @@
         <property name="sortOrderSidebar" value="COUNT"/>
         <property name="sortOrderFilterPage" value="COUNT"/>
     </bean>
-    
-    <bean id="searchFilterLanguage" class="org.dspace.discovery.configuration.DiscoverySearchFilterFacet">
+
+    <bean id="searchFilterIdentifier" class="org.dspace.discovery.configuration.DiscoverySearchFilterFacet">
         <property name="indexFieldName" value="identifier"/>
         <property name="metadataFields">
             <list>
                 <value>dc.identifier.issn</value>
                 <value>dc.identifier.isbn</value>
                 <value>dc.identifier.other</value>
-                
+
                 <value>dc.subject.ddc</value>
                 <value>dc.subject.lcc</value>
                 <value>dc.subject.lcsh</value>
@@ -451,8 +466,8 @@
         <property name="sortOrderSidebar" value="COUNT"/>
         <property name="sortOrderFilterPage" value="COUNT"/>
     </bean>
-    
-    <bean id="searchFilterLanguage" class="org.dspace.discovery.configuration.DiscoverySearchFilterFacet">
+
+    <bean id="searchFilterCitation" class="org.dspace.discovery.configuration.DiscoverySearchFilterFacet">
         <property name="indexFieldName" value="citation"/>
         <property name="metadataFields">
             <list>
@@ -462,8 +477,8 @@
         <property name="sortOrderSidebar" value="COUNT"/>
         <property name="sortOrderFilterPage" value="COUNT"/>
     </bean>
-    
-    <bean id="searchFilterLanguage" class="org.dspace.discovery.configuration.DiscoverySearchFilterFacet">
+
+    <bean id="searchFilterJournal" class="org.dspace.discovery.configuration.DiscoverySearchFilterFacet">
         <property name="indexFieldName" value="journal"/>
         <property name="metadataFields">
             <list>
@@ -473,8 +488,8 @@
         <property name="sortOrderSidebar" value="COUNT"/>
         <property name="sortOrderFilterPage" value="COUNT"/>
     </bean>
-    
-    <bean id="searchFilterLanguage" class="org.dspace.discovery.configuration.DiscoverySearchFilterFacet">
+
+    <bean id="searchFilterUri" class="org.dspace.discovery.configuration.DiscoverySearchFilterFacet">
         <property name="indexFieldName" value="uri"/>
         <property name="metadataFields">
             <list>
@@ -484,8 +499,8 @@
         <property name="sortOrderSidebar" value="COUNT"/>
         <property name="sortOrderFilterPage" value="COUNT"/>
     </bean>
-    
-    <bean id="searchFilterLanguage" class="org.dspace.discovery.configuration.DiscoverySearchFilterFacet">
+
+    <bean id="searchFilterSpatial" class="org.dspace.discovery.configuration.DiscoverySearchFilterFacet">
         <property name="indexFieldName" value="spatial"/>
         <property name="metadataFields">
             <list>
@@ -495,8 +510,8 @@
         <property name="sortOrderSidebar" value="COUNT"/>
         <property name="sortOrderFilterPage" value="COUNT"/>
     </bean>
-    
-    <bean id="searchFilterLanguage" class="org.dspace.discovery.configuration.DiscoverySearchFilterFacet">
+
+    <bean id="searchFilterTemporal" class="org.dspace.discovery.configuration.DiscoverySearchFilterFacet">
         <property name="indexFieldName" value="temporal"/>
         <property name="metadataFields">
             <list>
@@ -506,8 +521,8 @@
         <property name="sortOrderSidebar" value="COUNT"/>
         <property name="sortOrderFilterPage" value="COUNT"/>
     </bean>
-    
-    <bean id="searchFilterLanguage" class="org.dspace.discovery.configuration.DiscoverySearchFilterFacet">
+
+    <bean id="searchFilterTableOfContents" class="org.dspace.discovery.configuration.DiscoverySearchFilterFacet">
         <property name="indexFieldName" value="table_of_contents"/>
         <property name="metadataFields">
             <list>
@@ -516,8 +531,8 @@
         </property>
         <property name="sortOrderSidebar" value="COUNT"/>
         <property name="sortOrderFilterPage" value="COUNT"/>
-    </bean>    
-    
+    </bean>
+
     <bean id="searchFilterContentInOriginalBundle" class="org.dspace.discovery.configuration.DiscoverySearchFilterFacet">
         <property name="indexFieldName" value="has_content_in_original_bundle"/>
         <property name="metadataFields">
@@ -538,5 +553,5 @@
         <property name="metadataField" value="dc.date.issued"/>
         <property name="type" value="date"/>
     </bean>
-    
+
 </beans>
