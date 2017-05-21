@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 #enable admin user for tomcat gui
 sudo vim /etc/tomcat8/tomcat-users.xml
 
