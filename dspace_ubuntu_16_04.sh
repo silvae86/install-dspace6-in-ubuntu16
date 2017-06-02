@@ -70,8 +70,12 @@ exit
 #vim /dspace/webapps/jspui/layout/header-default.jsp
 
 sudo su
+su postgres
+date=$(date "+%Y.%m.%d-%H.%M.%S")
+pg_dump dspace > ~/dspace_bak_$date.sql
+exit
 #set the modification date to the current date on the server because of any time offset problems
-touch -a /var/lib/tomcat8/webapps/jspui/image/*logo* &&
+touch -a /var/lib/tomcat8/webapps/jspui/image/*logo*
 cd /home/dspace/DSpace  &&
 mvn package &&
 cd /home/dspace/DSpace/dspace/target/dspace-installer &&
