@@ -653,6 +653,10 @@
 				<entry value="lcc" key="dc.subject.lcc" />
 				<entry value="lcsh" key="dc.subject.lcsh" />
 				<entry value="mesh" key="dc.subject.mesh" />
+				
+				<!-- notes -->
+				
+				<entry value="notes" key="dc.description" />
 			</map>
 		</constructor-arg>
 	</bean>
