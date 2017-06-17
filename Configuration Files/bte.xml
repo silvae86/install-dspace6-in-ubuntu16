@@ -322,6 +322,10 @@
 				<entry key="37" value="lcc" />
 				<entry key="38" value="lcsh" />
 				<entry key="39" value="mesh" />
+				<entry key="40" value="booktitle" />
+				<entry key="41" value="udc" />
+				<entry key="42" value="pages" />
+				<entry key="43" value="notes" />
 			</map>
 		</property>
 		<property name="skipLines" value="1" />
@@ -373,6 +377,10 @@
 				<entry key="37" value="lcc" />
 				<entry key="38" value="lcsh" />
 				<entry key="39" value="mesh" />
+				<entry key="40" value="booktitle" />
+				<entry key="41" value="udc" />
+				<entry key="42" value="pages" />
+				<entry key="43" value="notes" />
 			</map>
 		</property>
 		<!-- This makes the CSV data loader able to load TSV data -->
