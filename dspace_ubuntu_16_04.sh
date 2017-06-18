@@ -75,6 +75,8 @@ date=$(date "+%Y.%m.%d-%H.%M.%S")
 pg_dump dspace > ~/dspace_bak_$date.sql
 exit
 #set the modification date to the current date on the server because of any time offset problems
+sudo su
+cd /home/DSpace
 touch -a /var/lib/tomcat8/webapps/jspui/image/*logo*
 cd /home/dspace/DSpace  &&
 mvn package &&
