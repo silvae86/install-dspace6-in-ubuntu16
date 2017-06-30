@@ -654,9 +654,12 @@
 				<entry value="lcsh" key="dc.subject.lcsh" />
 				<entry value="mesh" key="dc.subject.mesh" />
 				
-				<!-- notes -->
-				
-				<entry value="notes" key="dc.description" />
+                <!-- sergio fields -->
+
+                <entry value="booktitle" key="dc.ispartof" />
+                <entry value="udc" key="dc.subject.udc" />
+                <entry value="pages" key="dc.format.extent" />
+                <entry value="notes" key="dc.description" />
 			</map>
 		</constructor-arg>
 	</bean>
