@@ -656,7 +656,7 @@
 				
                 <!-- sergio fields -->
 
-                <entry value="booktitle" key="dc.ispartof" />
+                <entry value="booktitle" key="dc.relation.ispartof" />
                 <entry value="udc" key="dc.subject.udc" />
                 <entry value="pages" key="dc.format.extent" />
                 <entry value="notes" key="dc.description" />
