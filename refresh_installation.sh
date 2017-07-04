@@ -1,21 +1,25 @@
 #!/usr/bin/env bash
 sudo su
-rm -rf /dspace
 su postgres
 date=$(date "+%Y.%m.%d-%H.%M.%S")
 pg_dump dspace > ~/dspace_bak_$date.sql
 exit
 #set the modification date to the current date on the server because of any time offset problems
 sudo su
-cd /home/DSpace
+cd /home/dspace/DSpace
+git pull
+
+rm -rf /dspace
 touch -a /home/dspace/DSpace/dspace-jspui/src/main/webapp/image/*logo* &&
 cd /home/dspace/DSpace  &&
 mvn clean package  &&
 cd /home/dspace/DSpace/dspace/target/dspace-installer &&
+rm -rf /dspace/dspace/solr/statistics/data
 #ant fresh_install &&
 ant update &&
 #copy app to installation directory
-cp -R /home/dspace/DSpace/dspace /dspace &&
+mkdir -p /dspace
+cp -R /home/dspace/DSpace/* /dspace &&
 #install compiled apps in tomcat8
 #sudo cp $(find /home/dspace/DSpace | grep \.war$ | xargs echo) /var/lib/tomcat8/webapps;
 cd /var/lib/tomcat8/webapps &&
