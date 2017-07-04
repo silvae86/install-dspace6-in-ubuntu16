@@ -21,6 +21,8 @@ cd /var/lib/tomcat8/webapps &&
 rm -rf jspui/   oai/     rdf/     rest/    solr/    sword/   swordv2/ xmlui/ &&
 cp -R /dspace/dspace/webapps/jspui /dspace/dspace/webapps/solr /dspace/dspace/webapps/rest /var/lib/tomcat8/webapps &&
 touch -a /home/dspace/DSpace/dspace-jspui/src/main/webapp/image/*logo* &&
+cd /dspace/dspace/bin
+sudo ./dspace index-discovery
 #give ownership of installation to tomcat user
 sudo chown -R tomcat8 /dspace &&
 #restart tomcat;
