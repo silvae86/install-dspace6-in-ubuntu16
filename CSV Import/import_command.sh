@@ -1,7 +1,10 @@
 #!/bin/bash
 sudo su
+mkdir -p /dspace/dspace/imports
 chmod -R ugo+w /dspace/dspace/imports
+chown -R tomcat8 /dspace
 
 cd /dspace/dspace/bin
 chmod +x ./dspace
-./dspace import -s /home/dspace/template.csv -i csv -m /home/dspace/map -b -e admin@admin.com -c "123456789/2"
+./dspace import -b -s /home/dspace/data.csv -m /home/dspace/map -e utopia@letras.up.pt -c 123456789/3 -i csv
+./dspace index-discovery
