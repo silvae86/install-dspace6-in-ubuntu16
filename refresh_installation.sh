@@ -17,16 +17,16 @@ ant update &&
 cp -R /home/dspace/DSpace/dspace /dspace &&
 #install compiled apps in tomcat8
 #sudo cp $(find /home/dspace/DSpace | grep \.war$ | xargs echo) /var/lib/tomcat8/webapps;
-service tomcat8 stop &&
 cd /var/lib/tomcat8/webapps &&
-rm -rf jspui/   oai/     rdf/     rest/    solr/    sword/   swordv2/ xmlui/ ROOT/ &&
-cp -R /dspace/dspace/webapps/solr /dspace/dspace/webapps/rest /var/lib/tomcat8/webapps &&
-cp -R /var/lib/tomcat8/webapps/jspui/* /var/lib/tomcat8/webapps/ROOT && 
+rm -rf jspui/   oai/     rdf/     rest/    solr/    sword/   swordv2/ xmlui/ &&
+cp -R /dspace/dspace/webapps/jspui /dspace/dspace/webapps/solr /dspace/dspace/webapps/rest /var/lib/tomcat8/webapps &&
+sudo mkdir -p  /var/lib/tomcat8/webapps/ROOT &&
+cp -R /dspace/dspace/webapps/jspui/* /var/lib/tomcat8/webapps/ROOT &&
 touch -a /home/dspace/DSpace/dspace-jspui/src/main/webapp/image/*logo* &&
 #give ownership of installation to tomcat user
 sudo chown -R tomcat8 /dspace &&
 #restart tomcat;
-service tomcat8 start &&
+service tomcat8 restart &&
 echo "OK";
 
 
