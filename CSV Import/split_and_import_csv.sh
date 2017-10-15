@@ -76,14 +76,18 @@ rm -rf csv_without_header.csv.tmp
 
 cd $CHUNKS_FOLDER || echo "Unable to cd to $CHUNKS_FOLDER"
 
+i=0
 for f in *; do
     #add header and rename chunks to have .csv extension at the end
     CONTENTS=$(printf "$HEADER\n" && cat $f)
     echo $CONTENTS > "$f.csv"
     rm "$f"
     #import file
-    $DSPACE_DIR/dspace/bin/dspace import -s "$f.csv" -i csv -m ./map_import -b -e $EPERSON -c "$COLLECTION_ID"
+    $DSPACE_DIR/dspace/bin/dspace import -s "$f.csv" -i csv -m ./map_import_$i -b -e $EPERSON -c "$COLLECTION_ID"
+	$((i++))
 done
+
+cat ./map_import* > ./map_import
 
 #rebuild indexes
 "$DSPACE_DIR/dspace/bin/dspace" index-discovery
