@@ -1,0 +1,27 @@
+## Name
+Utopia
+
+## Short Description
+Contribute to the database
+
+## Introductory text (HTML)
+We need your help to make this database grow and to make it even more useful for the academic community. We aim to include references in any language.
+
+If you are the author of any of the titles listed here, please send us the abstract of your work and up to five keywords.
+
+If you have new titles to add, please fill in a form, and send us an abstract along with up to five keywords.
+
+We need help with the creation of keywords and abstracts for the existing entries. Volunteers will be fully credited as contributing editors.
+
+Join the ARUS – Advanced Research in Utopian Studies community and <a href="http://www.cetaps.com/?id=27&aid=19">contribute to the database</a>.
+
+## Copyright text (plain text):
+Make this Database grow
+
+## Side bar text (HTML): 
+This database has been created by CETAPS – The Centre for English, Translation, and Anglo-Portuguese Studies for the ARUS project. It benefited from the institutional support of the Faculty of Arts and Humanities of the University of Porto and from a partnership with MIL – U.Porto Media Innovation Labs. CETAPS is funded by FCT – the Foundation for Science and Technology, Portugal.
+
+<p>
+<img src="/image/uporto.png">
+<p>
+<img src="/image/fct.png">

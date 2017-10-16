@@ -1,5 +1,13 @@
 #!/usr/bin/env bash
 
+#example
+#./split_and_import_csv.sh
+#  --csv /home/arus/registos_15_10_2017.csv
+#  --eperson utopia@letras.up.pt
+#  --collection "123456789/938"
+#  --chunksize 100
+#  --dspace_dir /dspace
+
 #set parameters
 programname=$0
 CHUNKS_FOLDER="split_files"
