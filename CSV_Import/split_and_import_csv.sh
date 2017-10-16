@@ -82,25 +82,30 @@ echo "tail -n +2 $CSV_FILE" > csv_without_header.csv.tmp
 split -l "$CHUNK_SIZE" csv_without_header.csv.tmp "$CHUNKS_FOLDER/$CHUNKS_FILE_NAME"
 rm -rf csv_without_header.csv.tmp
 
-cd $CHUNKS_FOLDER || echo "Unable to cd to $CHUNKS_FOLDER"
+rm -rf "$INITIAL_DIR/maps"
+mkdir -p "$INITIAL_DIR/maps"
+rm "$INITIAL_DIR/map_import"
 
 i=0
+
+cd "$CHUNKS_FOLDER" || echo "Unable to cd to $CHUNKS_FOLDER"
+
 for f in *; do
     #add header and rename chunks to have .csv extension at the end
     CONTENTS=$(printf "$HEADER\n" && cat $f)
     echo $CONTENTS > "$f.csv"
     rm "$f"
     #import file
-    $DSPACE_DIR/dspace/bin/dspace import -s "$f.csv" -i csv -m ./map_import_$i -b -e $EPERSON -c "$COLLECTION_ID"
-	$((i++))
+    $DSPACE_DIR/dspace/bin/dspace import -s "$f.csv" -i csv -m "$INITIAL_DIR/maps/map_import_$i" -b -e $EPERSON -c "$COLLECTION_ID"
+    i=$(($i+1))
 done
 
-cat ./map_import* > ./map_import
+cat "$INITIAL_DIR"/maps/map_import* > "$INITIAL_DIR/map_import"
 
 #rebuild indexes
 "$DSPACE_DIR/dspace/bin/dspace" index-discovery
 
 #clean temporary files
-rm -rf $CHUNKS_FOLDER
+rm -rf "$CHUNKS_FOLDER"
 
-cd $INITIAL_DIR || echo "unable to return to initial dir" && exit 1
+cd "$INITIAL_DIR" || echo "unable to return to initial dir" && exit 1
