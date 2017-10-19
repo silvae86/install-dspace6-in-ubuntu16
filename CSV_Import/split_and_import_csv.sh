@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+set -o history -o histexpand
+
+apt-get install -y -q gnumeric
+
 #example
 #./split_and_import_csv.sh
 #  --csv /home/arus/registos_15_10_2017.csv
@@ -7,6 +11,10 @@
 #  --collection "123456789/938"
 #  --chunksize 100
 #  --dspace_dir /dspace
+
+#save working dir
+INITIAL_DIR=$(pwd)
+
 
 #set parameters
 programname=$0
@@ -24,7 +32,6 @@ function usage {
     exit 1
 }
 
-[[ "$@" == *--csv* ]] || usage
 [[ "$@" == *--collection* ]] || usage
 [[ "$@" == *--chunksize* ]] || usage
 [[ "$@" == *--eperson* ]] || usage
@@ -34,6 +41,9 @@ function usage {
 while test "$#" != "0";
 do
   case "$1" in
+          --xlsx*)
+              XLSX_FILE="$2"
+              ;;
           --csv*)
                   CSV_FILE="$2"
                   ;;
@@ -60,52 +70,64 @@ then
   exit 1
 fi
 
-if [[ $CSV_FILE == "" ]] || [[ $COLLECTION_ID == "" ]] || [[ $CHUNK_SIZE == "" ]]
+if [[ $COLLECTION_ID == "" ]] || [[ $CHUNK_SIZE == "" ]]
 then
   usage
 fi
 
-echo "Splitting $CSV_FILE into files with $CHUNK_SIZE lines at $CHUNKS_FOLDER"
+if [[ "$CSV_FILE" == "" ]] && [[ "$XLSX_FILE" == "" ]]
+then
+  usage
+else
+        if [[ "$CSV_FILE" != "" ]]
+        then
+                INPUT_FILE=$CSV_FILE
+        elif [[ "$XLSX_FILE" != "" ]]
+        then
+                echo "Converting XLSX file to CSV..."
+                rm "$XLSX_FILE.csv"
+                ssconvert "$XLSX_FILE" "$XLSX_FILE.csv" >> /dev/null
+                INPUT_FILE="$XLSX_FILE.csv"
+        fi
+fi
 
-#save working dir
-INITIAL_DIR=$(pwd)
+file_size_kb=`du -k "$INPUT_FILE" | cut -f1`
+number_of_lines=`wc -l $INPUT_FILE`
 
-#recreate folder to put chunks in
-rm -rf $CHUNKS_FOLDER
-mkdir -p $CHUNKS_FOLDER
+echo "Splitting $INPUT_FILE ($file_size_kb KB and $number_of_lines lines) into files with $CHUNK_SIZE lines at $CHUNKS_FOLDER"
+chmod +x ./split_csv.sh
+./split_csv.sh $CHUNK_SIZE $INPUT_FILE $CHUNKS_FOLDER
 
-#save header and remove it into a temporary file without header
-HEADER=$(head -1 "$CSV_FILE")
-echo "tail -n +2 $CSV_FILE" > csv_without_header.csv.tmp
+exit 1
 
-#split the file without header
-split -l "$CHUNK_SIZE" csv_without_header.csv.tmp "$CHUNKS_FOLDER/$CHUNKS_FILE_NAME"
-rm -rf csv_without_header.csv.tmp
-
-rm -rf "$INITIAL_DIR/maps"
-mkdir -p "$INITIAL_DIR/maps"
-rm "$INITIAL_DIR/map_import"
+rm -rf ./maps
+mkdir -p ./maps
 
 i=0
+echo "###############################################"
+echo "starting to process files at "$CHUNKS_FOLDER""
+echo "###############################################"
+ls -la ./$CHUNKS_FOLDER
 
-cd "$CHUNKS_FOLDER" || echo "Unable to cd to $CHUNKS_FOLDER"
-
-for f in *; do
+for f in "$CHUNKS_FOLDER"
+do
+    echo "processing $f"
     #add header and rename chunks to have .csv extension at the end
     CONTENTS=$(printf "$HEADER\n" && cat $f)
     echo $CONTENTS > "$f.csv"
-    rm "$f"
     #import file
-    $DSPACE_DIR/dspace/bin/dspace import -s "$f.csv" -i csv -m "$INITIAL_DIR/maps/map_import_$i" -b -e $EPERSON -c "$COLLECTION_ID"
+    $DSPACE_DIR/dspace/bin/dspace import -s "$f.csv" -i csv -m ./maps/map_import_$i -b -e $EPERSON -c "$COLLECTION_ID" || echo "failed to import $f.csv" && exit 1
     i=$(($i+1))
 done
 
-cat "$INITIAL_DIR"/maps/map_import* > "$INITIAL_DIR/map_import"
+#clean temporary files
+rm -rf $CHUNKS_FOLDER
+
+#create consolidated mapfile
+rm ./map_import
+cat ./maps/map_import* > ./map_import
 
 #rebuild indexes
-"$DSPACE_DIR/dspace/bin/dspace" index-discovery
-
-#clean temporary files
-rm -rf "$CHUNKS_FOLDER"
+./dspace index-discovery
 
 cd "$INITIAL_DIR" || echo "unable to return to initial dir" && exit 1
