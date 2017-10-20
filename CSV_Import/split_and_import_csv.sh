@@ -2,7 +2,7 @@
 
 set -o history -o histexpand
 
-apt-get install -y -q gnumeric
+sudo apt-get install -y -q gnumeric
 
 #example
 #./split_and_import_csv.sh
