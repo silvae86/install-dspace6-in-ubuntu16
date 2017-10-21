@@ -2,7 +2,7 @@
 
 set -o history -o histexpand
 
-sudo apt-get install -y -q gnumeric
+#sudo apt-get install -y -q gnumeric
 
 #example
 #./split_and_import_csv.sh
@@ -14,11 +14,11 @@ sudo apt-get install -y -q gnumeric
 
 #save working dir
 INITIAL_DIR=$(pwd)
-
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 #set parameters
 programname=$0
-CHUNKS_FOLDER="split_files"
+CHUNKS_FOLDER="$DIR/split_files"
 CHUNKS_FILE_NAME="chunk"
 
 #validate usage
@@ -92,31 +92,31 @@ else
 fi
 
 file_size_kb=`du -k "$INPUT_FILE" | cut -f1`
-number_of_lines=`wc -l $INPUT_FILE`
+number_of_lines=`wc -l "$INPUT_FILE"`
 
-echo "Splitting $INPUT_FILE ($file_size_kb KB and $number_of_lines lines) into files with $CHUNK_SIZE lines at $CHUNKS_FOLDER"
-chmod +x ./split_csv.sh
-./split_csv.sh $CHUNK_SIZE $INPUT_FILE $CHUNKS_FOLDER
+echo "Splitting "$INPUT_FILE" ($file_size_kb KB and $number_of_lines lines) into files with $CHUNK_SIZE lines at $CHUNKS_FOLDER"
+chmod +x $DIR/split_csv.sh
+$DIR/split_csv.sh $CHUNK_SIZE "$INPUT_FILE" $CHUNKS_FOLDER
 
-exit 1
+#exit 1
 
-rm -rf ./maps
-mkdir -p ./maps
+rm -rf $DIR/maps
+mkdir -p $DIR/maps
 
 i=0
 echo "###############################################"
 echo "starting to process files at "$CHUNKS_FOLDER""
 echo "###############################################"
-ls -la ./$CHUNKS_FOLDER
+#ls -la $CHUNKS_FOLDER
 
-for f in "$CHUNKS_FOLDER"
+for f in "$CHUNKS_FOLDER"/*
 do
     echo "processing $f"
     #add header and rename chunks to have .csv extension at the end
-    CONTENTS=$(printf "$HEADER\n" && cat $f)
-    echo $CONTENTS > "$f.csv"
+    #CONTENTS=$(printf "$HEADER\n" && cat $f)
+    #echo $CONTENTS > "$f"
     #import file
-    $DSPACE_DIR/dspace/bin/dspace import -s "$f.csv" -i csv -m ./maps/map_import_$i -b -e $EPERSON -c "$COLLECTION_ID" || echo "failed to import $f.csv" && exit 1
+    $DSPACE_DIR/dspace/bin/dspace import -s "$f" -i csv -m $DIR/maps/map_import_$i -b -e $EPERSON -c "$COLLECTION_ID" || echo "failed to import $f"
     i=$(($i+1))
 done
 
@@ -124,10 +124,10 @@ done
 rm -rf $CHUNKS_FOLDER
 
 #create consolidated mapfile
-rm ./map_import
-cat ./maps/map_import* > ./map_import
+rm $DIR/map_import
+cat $DIR/maps/map_import* > $DIR/map_import
 
 #rebuild indexes
-./dspace index-discovery
+$DSPACE_DIR/dspace/bin/dspace/ index-discovery
 
 cd "$INITIAL_DIR" || echo "unable to return to initial dir" && exit 1

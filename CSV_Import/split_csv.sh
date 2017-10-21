@@ -9,12 +9,12 @@ file_name=$2
 subdir=$3
 
 #Creates a temporary file with the csv header
-head -n 1 ${file_name} > .tmp_header.csv
+head -n 1 "$file_name" > .tmp_header.csv
 
 #Splits the given file into some files
-echo "Spliting ${file_name} into ${subdir}, this step may take a while"
+echo "Spliting "$file_name" into ${subdir}, this step may take a while"
 
-split -d -l ${max_lines} ${file_name} .tmp_splitcsv_
+split -d -l ${max_lines} "$file_name" .tmp_splitcsv_
 
 rm -rf $subdir
 mkdir -p $subdir
