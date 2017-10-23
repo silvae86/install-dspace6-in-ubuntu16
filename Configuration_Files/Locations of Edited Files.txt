@@ -1,0 +1,3 @@
+/home/dspace/DSpace/dspace-api/src/main/resources/Messages.properties
+/home/dspace/DSpace/dspace/config/spring/api/discovery.xml
+/home/dspace/DSpace/dspace/config/spring/api/bte.xml
