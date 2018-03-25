@@ -4,6 +4,8 @@ var async = require('async');
 var glob = require('glob');
 var zpad = require("zpad");
 
+var destinationMapFile = "map";
+
 var readlines = function(file, callback)
 {
   var lines = [];
@@ -28,6 +30,15 @@ var readlines = function(file, callback)
     callback(1);
   })
 }
+try{
+  fs.unlinkSync(destinationMapFile);
+}
+catch(e)
+{
+  // console.log("No existing map found, no need to delete.");
+}
+
+var stream = fs.createWriteStream(destinationMapFile, {flags:'a'});
 
 glob("maps/map_import_*", function (er, files) {
   if(!er)
@@ -48,9 +59,7 @@ glob("maps/map_import_*", function (er, files) {
           }
         );
       }
-
-      var stream = fs.createWriteStream("map", {flags:'a'});
-      concatenatedMap.forEach( function (item,index) {
+      concatenatedMap.forEach(function (item,index) {
           stream.write(item + "\n");
       });
 
