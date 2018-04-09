@@ -120,6 +120,9 @@ do
     i=$(($i+1))
 done
 
+node "$INITIAL_DIR"/merge_maps.js
+cat "$INITIAL_DIR"/maps/map_import* > "$INITIAL_DIR/map_import"
+
 #clean temporary files
 rm -rf $CHUNKS_FOLDER
 
