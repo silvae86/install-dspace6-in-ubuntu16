@@ -2,6 +2,20 @@
 
 #install dependencies
 sudo apt-get -qq -y install openjdk-8-jdk tasksel ant maven htop lynx wget
+
+#install Oracle JDK 8
+info "Installing Java 8 JDK"
+sudo apt-get install --yes python-software-properties
+sudo add-apt-repository -y ppa:webupd8team/java
+sudo apt-get update -qq
+sudo sh -c "echo debconf shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections"
+sudo sh -c "echo debconf shared/accepted-oracle-license-v1-1 seen true | /usr/bin/debconf-set-selections"
+sudo apt-get install --yes oracle-java8-installer
+sudo sh -c "yes \"\" | apt-get -f install"
+
+#set Oracle JDK 8 as default
+sudo apt-get install oracle-java8-set-default
+
 sudo tasksel #select PostgreSQL server and Tomcat Server. Confirm.
 sudo apt-get install mutt #optional, for mailing files as attachments.
 

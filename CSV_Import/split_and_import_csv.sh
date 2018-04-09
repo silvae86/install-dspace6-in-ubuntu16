@@ -76,15 +76,17 @@ mkdir -p $CHUNKS_FOLDER
 
 #save header and remove it into a temporary file without header
 HEADER=$(head -1 "$CSV_FILE")
-echo "tail -n +2 $CSV_FILE" > csv_without_header.csv.tmp
+tail -n +2 $CSV_FILE > csv_without_header.csv.tmp
 
 #split the file without header
 split -l "$CHUNK_SIZE" csv_without_header.csv.tmp "$CHUNKS_FOLDER/$CHUNKS_FILE_NAME"
+
+vim csv_without_header.csv.tmp
 rm -rf csv_without_header.csv.tmp
 
 rm -rf "$INITIAL_DIR/maps"
 mkdir -p "$INITIAL_DIR/maps"
-rm "$INITIAL_DIR/map_import"
+rm -rf "$INITIAL_DIR/map_import"
 
 i=0
 
@@ -93,17 +95,19 @@ cd "$CHUNKS_FOLDER" || echo "Unable to cd to $CHUNKS_FOLDER"
 for f in *; do
     #add header and rename chunks to have .csv extension at the end
     CONTENTS=$(printf "$HEADER\n" && cat $f)
-    echo $CONTENTS > "$f.csv"
+    echo "$CONTENTS" > "$f.csv"
+    vim "$f.csv"
     rm "$f"
     #import file
     $DSPACE_DIR/dspace/bin/dspace import -s "$f.csv" -i csv -m "$INITIAL_DIR/maps/map_import_$i" -b -e $EPERSON -c "$COLLECTION_ID"
     i=$(($i+1))
 done
 
-node "$INITIAL_DIR"/merge_maps.js
+nodejs "$INITIAL_DIR"/merge_maps.js
 cat "$INITIAL_DIR"/maps/map_import* > "$INITIAL_DIR/map_import"
 
 #rebuild indexes
+echo "Rebuilding indexes after import..."
 "$DSPACE_DIR/dspace/bin/dspace" index-discovery
 
 #clean temporary files
