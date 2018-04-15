@@ -15,7 +15,7 @@ for(var i = 0; i < students.length; i++)
 	var firstName = student["Primeiro"];
 	var lastName = student["Ultimo"];
 	
-	var command = `${dspaceExecutablePath} user --add --email "${email}" --givenname "${firstName}" --surname "${lastName}"`
+	var command = `${dspaceExecutablePath} user --add --email "${email}" --givenname "${firstName}" --surname "${lastName}" --password "rebucadosHALLS"`
 	console.log(command)
 	
 	child_process.execSync(command);
