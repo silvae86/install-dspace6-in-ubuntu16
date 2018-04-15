@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
-#sudo su
-#su postgres
+sudo -i
+su postgres
 #date=$(date "+%Y.%m.%d-%H.%M.%S")
 #pg_dump dspace > ~/dspace_bak_$date.sql
 #exit
 #set the modification date to the current date on the server because of any time offset problems
 #sudo su
-cd /home/DSpace
+cd /home/dspace
 touch -a /var/lib/tomcat8/webapps/jspui/image/*logo*
 cd /home/dspace/DSpace  &&
 mvn package &&
@@ -19,9 +19,9 @@ cp -R /home/dspace/DSpace/dspace /dspace &&
 #sudo cp $(find /home/dspace/DSpace | grep \.war$ | xargs echo) /var/lib/tomcat8/webapps;
 cd /var/lib/tomcat8/webapps &&
 rm -rf jspui/   oai/     rdf/     rest/    solr/    sword/   swordv2/ xmlui/ &&
-cp -R /dspace/dspace/webapps/jspui /dspace/dspace/webapps/solr /dspace/dspace/webapps/rest /var/lib/tomcat8/webapps &&
+sudo cp -R /dspace/dspace/webapps/jspui /dspace/dspace/webapps/solr /dspace/dspace/webapps/rest /var/lib/tomcat8/webapps &&
 sudo mkdir -p  /var/lib/tomcat8/webapps/ROOT &&
-cp -R /dspace/dspace/webapps/jspui/* /var/lib/tomcat8/webapps/ROOT &&
+sudo cp -R /dspace/dspace/webapps/jspui/* /var/lib/tomcat8/webapps/ROOT &&
 touch -a /home/dspace/DSpace/dspace-jspui/src/main/webapp/image/*logo* &&
 #give ownership of installation to tomcat user
 sudo chown -R tomcat8 /dspace &&
